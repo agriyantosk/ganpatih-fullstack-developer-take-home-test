@@ -3,4 +3,6 @@ export interface IPost {
   user_id: string;
   content: string;
   created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
 }
