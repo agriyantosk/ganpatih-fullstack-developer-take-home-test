@@ -1,20 +1,21 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "./build",
-    "strictNullChecks": true,
-    // "typeRoots": ["./typings", "./node_modules/@types", "./src/types"],
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "types": ["node", "express"],
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmitOnError": false,
-    "strict": false
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["build", "node_modules", "test"]
-}
+    "compilerOptions": {
+      "target": "ES2022",
+      "module": "commonjs",
+      "sourceMap": true,
+      "outDir": "./build",
+      "strictNullChecks": true,
+      "typeRoots": ["./types", "./typings", "./node_modules/@types"],
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "types": ["node", "express"],
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "noEmitOnError": false,
+      "strict": false
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["build", "node_modules", "test"]
+  }
+  

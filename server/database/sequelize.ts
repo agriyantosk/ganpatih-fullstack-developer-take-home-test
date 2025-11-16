@@ -11,8 +11,8 @@ if (env === "development" || env === "test") {
 
 const sequelize = new Sequelize({
   ...generateDatabaseConfig(env),
-  // models: [path.resolve(__dirname, "../models")],
-  models: [path.resolve(__dirname, "../models/**/*.ts")],
+  models: [path.resolve(__dirname, "../models")],
+  // models: [path.resolve(__dirname, "../models/**/*.ts")],
 });
 
 export default sequelize;
