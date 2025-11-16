@@ -13,8 +13,8 @@ import {
   HasMany,
 } from "sequelize-typescript";
 
-import { Post } from "./model.posts";
-import { Follow } from "./model.follows";
+import { Post } from "./posts.model";
+import { Follow } from "./follows.model";
 import { IUser } from "../../types/interfaces/interface.user";
 
 @Table({

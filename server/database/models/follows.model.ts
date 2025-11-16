@@ -13,7 +13,7 @@ import {
   DeletedAt,
 } from "sequelize-typescript";
 
-import { User } from "./model.users";
+import { User } from "./users.model";
 import { IFollow } from "../../types/interfaces/interface.follow";
 
 @Table({
