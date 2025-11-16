@@ -1,4 +1,3 @@
-// models/users.ts
 import {
   Table,
   Column,
@@ -15,7 +14,20 @@ import {
 
 import { Post } from "./posts.model";
 import { Follow } from "./follows.model";
-import { IUser } from "../../types/interfaces/interface.user";
+
+export interface IUserAttributes {
+  id: string;
+  username: string;
+  password_hash: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date | null;
+}
+
+export interface IUserCreationAttributes {
+  username: string;
+  password_hash: string;
+}
 
 @Table({
   tableName: "users",
@@ -25,7 +37,10 @@ import { IUser } from "../../types/interfaces/interface.user";
   updatedAt: "updated_at",
   deletedAt: "deleted_at",
 })
-export class User extends Model<IUser> implements IUser {
+export class User
+  extends Model<IUserAttributes, IUserCreationAttributes>
+  implements IUserAttributes
+{
   @PrimaryKey
   @Default(DataType.UUIDV4)
   @Column({ type: DataType.UUID, field: "id" })
@@ -52,7 +67,7 @@ export class User extends Model<IUser> implements IUser {
 
   @DeletedAt
   @Column({ field: "deleted_at" })
-  deleted_at!: Date;
+  deleted_at!: Date | null;
 
   @HasMany(() => Post)
   posts?: Post[];
