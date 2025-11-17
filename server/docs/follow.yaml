@@ -1,5 +1,5 @@
 paths:
-  /follow/{userId}:
+  /follow/{user_id}:
     post:
       tags: [Follow]
       security:
@@ -7,13 +7,25 @@ paths:
       summary: Follow user
       parameters:
         - in: path
-          name: userId
+          name: user_id
           required: true
+          schema:
+            type: string
       responses:
-        201:
+        200:
           description: Followed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
 
-  /unfollow/{userId}:
     delete:
       tags: [Follow]
       security:
@@ -21,8 +33,21 @@ paths:
       summary: Unfollow user
       parameters:
         - in: path
-          name: userId
+          name: user_id
           required: true
+          schema:
+            type: string
       responses:
         200:
           description: Unfollowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string }
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string

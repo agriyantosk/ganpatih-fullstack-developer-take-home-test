@@ -14,16 +14,76 @@ paths:
               properties:
                 content:
                   type: string
+                  maxLength: 200
       responses:
         201:
           description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      content:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
 
   /feed:
     get:
       tags: [Posts]
       security:
         - bearerAuth: []
-      summary: Get feed
+      summary: Retrieve paginated feed
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
       responses:
         200:
           description: Feed retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      total:
+                        type: integer
+                      posts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id: { type: string }
+                            content: { type: string }
+                            created_at: { type: string, format: date-time }
+                            user:
+                              type: object
+                              properties:
+                                id: { type: string }
+                                username: { type: string }
+                                is_following: { type: boolean }
+                                follower_count: { type: integer }
+                                following_count: { type: integer }
+                                post_count: { type: integer }
