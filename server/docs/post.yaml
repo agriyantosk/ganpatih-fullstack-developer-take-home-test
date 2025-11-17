@@ -1,0 +1,29 @@
+paths:
+  /posts:
+    post:
+      tags: [Posts]
+      security:
+        - bearerAuth: []
+      summary: Create new post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                content:
+                  type: string
+      responses:
+        201:
+          description: Created
+
+  /feed:
+    get:
+      tags: [Posts]
+      security:
+        - bearerAuth: []
+      summary: Get feed
+      responses:
+        200:
+          description: Feed retrieved

@@ -1,0 +1,28 @@
+paths:
+  /register:
+    post:
+      tags: [Auth]
+      summary: Register user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: User created
+
+  /login:
+    post:
+      tags: [Auth]
+      summary: Login user
+      responses:
+        200:
+          description: Login success

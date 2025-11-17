@@ -1,0 +1,28 @@
+paths:
+  /follow/{userId}:
+    post:
+      tags: [Follow]
+      security:
+        - bearerAuth: []
+      summary: Follow user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+      responses:
+        201:
+          description: Followed
+
+  /unfollow/{userId}:
+    delete:
+      tags: [Follow]
+      security:
+        - bearerAuth: []
+      summary: Unfollow user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+      responses:
+        200:
+          description: Unfollowed
