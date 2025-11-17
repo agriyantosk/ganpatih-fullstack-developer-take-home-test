@@ -93,6 +93,9 @@ const userController = {
   me: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const authUserId = (req as any).user?.id;
+      console.log(authUserId, "authUserId");
+      console.log((req as any).user?.id, "(req as any).user?.id");
+      console.log((req as any).user, "(req as any).user");
       if (!authUserId) throwError("unauthorized", 401);
 
       const user = await User.findByPk(authUserId, {
