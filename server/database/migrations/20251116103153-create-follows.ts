@@ -40,7 +40,6 @@ module.exports = {
       },
     });
 
-    // Extra safety — ensures no duplicates
     await queryInterface.addConstraint("follows", {
       fields: ["follower_id", "followee_id"],
       type: "unique",
