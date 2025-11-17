@@ -13,6 +13,10 @@ const swaggerOptions = {
         url: `http://localhost:${process.env.PORT}`,
         description: "Local Development",
       },
+      {
+        url: `https://opulent-journey-56vvp5j5g4q345jq-3000.app.github.dev/`,
+        description: "Codespace",
+      },
     ],
   },
   apis: [path.resolve(__dirname, "../docs/*.yaml")],

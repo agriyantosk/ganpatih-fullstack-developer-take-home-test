@@ -17,7 +17,6 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-# ☑️ Pass runtime API URL (can override during docker-compose)
 ENV NEXT_PUBLIC_API_BASE_URL="http://localhost:5001/api"
 
 COPY --from=builder /app ./
