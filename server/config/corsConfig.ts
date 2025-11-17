@@ -3,7 +3,7 @@ import { CorsOptions } from "cors";
 const allowedOrigins =
   process.env.NODE_ENV === "development"
     ? ["http://localhost:3000"]
-    : ["https://opulent-journey-56vvp5j5g4q345jq-5001.app.github.dev/"];
+    : ["https://opulent-journey-56vvp5j5g4q345jq-3000.app.github.dev/"];
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
