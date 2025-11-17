@@ -1,7 +1,10 @@
 import dotenv from "dotenv";
+import path from "path";
 import { Sequelize } from "sequelize-typescript";
 import { generateDatabaseConfig } from "./index";
-import path from "path";
+import { User } from "./models/users.model";
+import { Post } from "./models/posts.model";
+import { Follow } from "./models/follows.model";
 dotenv.config();
 
 const env = process.env.NODE_ENV! || "development";
@@ -11,7 +14,7 @@ if (env === "development" || env === "test") {
 
 const sequelize = new Sequelize({
   ...generateDatabaseConfig(env),
-  models: [path.resolve(__dirname, "./models/**/*.{ts,js}")],
+  models: [User, Post, Follow],
 });
 
 export default sequelize;

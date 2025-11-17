@@ -6,8 +6,15 @@ import { getRefreshToken, clearRefreshToken } from "@/lib/auth";
 import { useAuthStore } from "@/store/auth.store";
 import { AuthTokens } from "@/lib/types";
 
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:5001/api";
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+if (!baseUrl) {
+  throw new Error(
+    "NEXT_PUBLIC_API_BASE_URL is not defined. Please set it in your environment (.env or build args)."
+  );
+}
+
+export const API_BASE_URL = baseUrl;
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,

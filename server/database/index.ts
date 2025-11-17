@@ -1,11 +1,10 @@
 import { SequelizeOptions } from "sequelize-typescript";
+import dotenv from "dotenv";
+import path from "path";
 
-// * if you want to create db using sequelize-cli, uncomment this.
-// * after uncomment, use 'npm run build' to build app
-// * then npx sequelize-cli db:create
-// * after that comment again
-// import dotenv from "dotenv";
-// dotenv.config();
+const env = process.env.NODE_ENV || "development";
+const envFile = path.resolve(__dirname, "../.env");
+dotenv.config({ path: envFile });
 
 const config: { [key: string]: SequelizeOptions } = {
   development: {
