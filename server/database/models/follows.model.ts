@@ -1,4 +1,3 @@
-// models/follows.ts
 import {
   Table,
   Column,
@@ -16,6 +15,9 @@ import {
 import { User } from "./users.model";
 import { IFollow } from "../../types/interfaces/interface.follow";
 
+export interface IFollowCreationAttributes
+  extends Omit<IFollow, "created_at" | "updated_at" | "deleted_at"> {}
+
 @Table({
   tableName: "follows",
   timestamps: true,
@@ -24,7 +26,10 @@ import { IFollow } from "../../types/interfaces/interface.follow";
   updatedAt: "updated_at",
   deletedAt: "deleted_at",
 })
-export class Follow extends Model<IFollow> implements IFollow {
+export class Follow
+  extends Model<IFollow, IFollowCreationAttributes>
+  implements IFollow
+{
   @PrimaryKey
   @ForeignKey(() => User)
   @Column({
@@ -43,21 +48,23 @@ export class Follow extends Model<IFollow> implements IFollow {
   })
   followee_id!: string;
 
+  @CreatedAt
+  @Column({ type: DataType.DATE, field: "created_at" })
+  created_at!: Date;
+
+  @UpdatedAt
+  @Column({ type: DataType.DATE, field: "updated_at" })
+  updated_at!: Date;
+
+  @DeletedAt
+  @Column({ type: DataType.DATE, field: "deleted_at" })
+  deleted_at!: Date | null;
+
   @BelongsTo(() => User, { foreignKey: "follower_id" })
   follower?: User;
 
   @BelongsTo(() => User, { foreignKey: "followee_id" })
   followee?: User;
-
-  @CreatedAt
-  @Column({ field: "created_at" })
-  created_at!: Date;
-
-  @UpdatedAt
-  @Column({ field: "updated_at" })
-  updated_at!: Date;
-
-  @DeletedAt
-  @Column({ field: "deleted_at" })
-  deleted_at!: Date;
 }
+
+export default Follow;

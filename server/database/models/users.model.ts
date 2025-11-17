@@ -58,15 +58,15 @@ export class User
   password_hash!: string;
 
   @CreatedAt
-  @Column({ field: "created_at" })
+  @Column({ type: DataType.DATE, field: "created_at" })
   created_at!: Date;
 
   @UpdatedAt
-  @Column({ field: "updated_at" })
+  @Column({ type: DataType.DATE, field: "updated_at" })
   updated_at!: Date;
 
   @DeletedAt
-  @Column({ field: "deleted_at" })
+  @Column({ type: DataType.DATE, field: "deleted_at" })
   deleted_at!: Date | null;
 
   @HasMany(() => Post)
@@ -78,3 +78,5 @@ export class User
   @HasMany(() => Follow, { foreignKey: "followee_id" })
   followers?: Follow[];
 }
+
+export default User;
