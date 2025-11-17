@@ -6,87 +6,87 @@ module.exports = {
   async up(queryInterface: QueryInterface) {
     const now = new Date();
 
-    // Generate User IDs
-    const user1 = uuidv4();
-    const user2 = uuidv4();
-    const user3 = uuidv4();
+    const usernames = [
+      "john",
+      "mary",
+      "alex",
+      "budi",
+      "sarah",
+      "kevin",
+      "lisa",
+    ];
+    const users: any[] = [];
 
-    // Hash passwords
-    const johnPassword = await bcrypt.hash("john$123", 10);
-    const maryPassword = await bcrypt.hash("mary$123", 10);
-    const alexPassword = await bcrypt.hash("alex$123", 10);
-
-    // Insert users
-    await queryInterface.bulkInsert("users", [
-      {
-        id: user1,
-        username: "john",
-        password_hash: johnPassword,
-        created_at: now,
-        updated_at: now,
-      },
-      {
-        id: user2,
-        username: "mary",
-        password_hash: maryPassword,
-        created_at: now,
-        updated_at: now,
-      },
-      {
-        id: user3,
-        username: "alex",
-        password_hash: alexPassword,
-        created_at: now,
-        updated_at: now,
-      },
-    ]);
-
-    // Posts
-    await queryInterface.bulkInsert("posts", [
-      {
+    for (const username of usernames) {
+      users.push({
         id: uuidv4(),
-        user_id: user1,
-        content: "Hello world! My first post.",
+        username,
+        password_hash: await bcrypt.hash(username + "123$", 10),
         created_at: now,
         updated_at: now,
-      },
-      {
-        id: uuidv4(),
-        user_id: user2,
-        content: "Just joined the network!",
-        created_at: now,
-        updated_at: now,
-      },
-      {
-        id: uuidv4(),
-        user_id: user3,
-        content: "Excited to be here 👋",
-        created_at: now,
-        updated_at: now,
-      },
-    ]);
+      });
+    }
 
-    // Follows
-    await queryInterface.bulkInsert("follows", [
-      {
-        follower_id: user1,
-        followee_id: user2,
-        created_at: now,
-        updated_at: now,
-      },
-      {
-        follower_id: user2,
-        followee_id: user3,
-        created_at: now,
-        updated_at: now,
-      },
-      {
-        follower_id: user3,
-        followee_id: user1,
-        created_at: now,
-        updated_at: now,
-      },
-    ]);
+    await queryInterface.bulkInsert("users", users);
+
+    const userIds = users.map((u) => u.id);
+
+    const posts: any[] = [];
+
+    const sampleSentences = [
+      "Hello world 👋",
+      "Beautiful day today!",
+      "Learning full-stack development!",
+      "Just posted my first update!",
+      "Working on a new project 🚀",
+      "Coffee makes coding better ☕",
+      "Trying out Next.js and loving it!",
+      "Random thought of the day...",
+      "Feeling productive!",
+    ];
+
+    for (const user of users) {
+      const numPosts = Math.floor(Math.random() * 3) + 3;
+
+      for (let i = 0; i < numPosts; i++) {
+        posts.push({
+          id: uuidv4(),
+          user_id: user.id,
+          content:
+            sampleSentences[Math.floor(Math.random() * sampleSentences.length)],
+          created_at: now,
+          updated_at: now,
+        });
+      }
+    }
+
+    await queryInterface.bulkInsert("posts", posts);
+
+    const follows: any[] = [];
+    const followSet = new Set();
+
+    for (const follower of userIds) {
+      const numberOfFollowings = Math.floor(Math.random() * 4) + 2;
+
+      for (let i = 0; i < numberOfFollowings; i++) {
+        const followee = userIds[Math.floor(Math.random() * userIds.length)];
+        if (followee === follower) continue;
+
+        const key = `${follower}-${followee}`;
+        if (followSet.has(key)) continue;
+
+        followSet.add(key);
+
+        follows.push({
+          follower_id: follower,
+          followee_id: followee,
+          created_at: now,
+          updated_at: now,
+        });
+      }
+    }
+
+    await queryInterface.bulkInsert("follows", follows);
   },
 
   async down(queryInterface: QueryInterface) {
