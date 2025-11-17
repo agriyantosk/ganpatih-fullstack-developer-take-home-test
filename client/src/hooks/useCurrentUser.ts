@@ -11,13 +11,15 @@ export function useCurrentUser() {
   const query = useQuery({
     queryKey: ["current-user"],
     queryFn: async () => api.fetchCurrentUser(),
-    enabled: !storeUser,
+    enabled: Boolean(storeUser),
     staleTime: 1000 * 60 * 5,
   });
 
+  const latestUser = (query.data as AuthUser | undefined) ?? storeUser;
+
   return {
-    user: storeUser ?? (query.data as AuthUser | undefined) ?? null,
-    isLoading: storeUser ? false : query.isLoading,
+    user: latestUser,
+    isLoading: query.isLoading,
     refetch: query.refetch,
   };
 }
