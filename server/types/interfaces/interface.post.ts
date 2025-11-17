@@ -6,3 +6,10 @@ export interface IPost {
   updated_at: Date;
   deleted_at: Date | null;
 }
+
+export interface IPostWithUser extends IPost {
+  user?: {
+    id: string;
+    username: string;
+  };
+}
