@@ -2,7 +2,7 @@ import { CorsOptions } from "cors";
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://ganpatih-fullstack-developer-take-home-test-production.up.railway.app",
+  "https://terrific-radiance-production.up.railway.app",
 ];
 
 const corsOptions: CorsOptions = {
